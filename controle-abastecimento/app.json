@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Controle",
+    "slug": "cotrole-abastecimento",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon_cvp.png",
+    "splash": {
+      "image": "./assets/splash_screen.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon_cvp.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.robertsilva4.controleabastecimento",
+      "permissions": [],
+      "versionCode": "1.1.0"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
