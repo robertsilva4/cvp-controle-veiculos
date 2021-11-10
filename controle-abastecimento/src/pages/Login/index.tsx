@@ -32,9 +32,13 @@ export default function Login() {
     }
     const handleLogin = (user: string, pwd: string) => {
         let usuario = user.toLowerCase();
-        fetchLogin(usuario, pwd)
+        if(usuario != '' && pwd.length > 8){
+            fetchLogin(usuario, pwd)
             .then(res => { handleData(res.data) })
             .catch(() => Alert.alert("Erro de Login", "Usuário ou senha inválida"))
+        }else{
+            Alert.alert("Preencha os campos corretamente")
+        }
     }
     const handleSiginup = () => {
         navigation.navigate('Siginup')
@@ -63,16 +67,19 @@ export default function Login() {
             <Header />
             <View style={styles.container}>
                 <View style={styles.cardLogin}>
+                    <Text style={styles.title}>Entre ou Cadastre-se</Text>
+                    <Text style={styles.modalText}>Usuário:</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={setUser}
-                        placeholder="Digite seu usuário"
+                        placeholder="Exemplo"
                         value={user}
                     ></TextInput>
+                    <Text style={styles.modalText}>Senha:</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={setPwd}
-                        placeholder="Digite a Senha"
+                        placeholder="********"
                         secureTextEntry={true}
                         value={pwd}
                     ></TextInput>
@@ -123,18 +130,21 @@ export default function Login() {
                                 style={styles.modalInput}
                                 value={userReset}
                                 onChangeText={setUserReset}
+                                placeholder="Exemplo"
                             />
-                            <Text style={styles.modalText}>Email:</Text>
+                            <Text style={styles.modalText}>e-mail:</Text>
                             <TextInput
                                 style={styles.modalInput}
                                 value={email}
                                 onChangeText={setEmail}
+                                placeholder="exemplo@gmail.com"
                             />
                             <Text style={styles.modalText}>Nova Senha:</Text>
                             <TextInput
                                 style={styles.modalInput}
                                 value={pwdReset}
                                 onChangeText={setPwdReset}
+                                placeholder="Min. 8 Caracteres"
                             />
 
                             <Pressable
@@ -168,11 +178,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#003566',
         alignItems: 'center',
     },
+    title:{
+        color:"#fff",
+        marginTop: "3%",
+        fontSize: 20
+    },
     input: {
         borderRadius: 5,
         width: '70%',
         backgroundColor: '#FFF',
-        marginTop: "13%",
         marginBottom: "2%",
         padding: 5,
         textAlign: 'center',
@@ -202,11 +216,11 @@ const styles = StyleSheet.create({
     },
 
     //modal
-    containerCloseModal:{
-        width:"100%",
-        height:"25%",
-        flexDirection:"column",
-        alignItems:"flex-end"
+    containerCloseModal: {
+        width: "100%",
+        height: "25%",
+        flexDirection: "column",
+        alignItems: "flex-end"
     },
     closeModal: {
         width: "20%",
@@ -227,7 +241,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         shadowColor: "#000",
         width: "80%",
-        height: "80%",
+        height: "90%",
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
@@ -256,7 +270,9 @@ const styles = StyleSheet.create({
         width: "75%",
         backgroundColor: '#FFF',
         color: '#000000',
-        textAlign: 'center'
+        textAlign: 'center',
+        borderRadius: 5,
+        padding: 5,
     },
     modalText: {
         color: "#FFF",

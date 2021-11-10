@@ -43,36 +43,41 @@ export default function Siginup() {
             <ScrollView >
                 <View style={styles.container}>
                     <Text style={styles.title}>Cadastrar Usuário</Text>
+                    <Text style={styles.text}>Usuário:</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={setUser}
-                        placeholder="Crie um Usuário"
+                        placeholder="Exemplo"
                         value={user}
                     ></TextInput>
+                    <Text style={styles.text}>Crie uma Senha:</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={setPwd}
-                        placeholder="Crie uma Senha"
+                        placeholder="Min. 8 Caracteres"
                         secureTextEntry={true}
                         value={pwd}
                     ></TextInput>
+                    <Text style={styles.text}>Seu CPF ou CNPJ:</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={setCpfCnpj}
-                        placeholder="Digite seu CPF ou CNPJ"
+                        placeholder="000.000.000-00"
                         value={cpfcnpj}
                     ></TextInput>
+                    <Text style={styles.text}>Seu e-mail:</Text>
                     <TextInput
                         style={styles.input}
                         keyboardType="email-address"
                         onChangeText={setMail}
-                        placeholder="Digite seu e-mail"
+                        placeholder="exemplo@gmail.com"
                         value={mail}
                     ></TextInput>
+                    <Text style={styles.text}>Seu Nome:</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={setName}
-                        placeholder="Digite seu Nome"
+                        placeholder="Exemplo De Nome"
                         value={name}
                     ></TextInput>
                     <RectButton
@@ -96,11 +101,14 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         padding: 40,
     },
+    text:{
+        color:"#FFF",
+        marginTop:"2%",
+    },
     input: {
         width: '100%',
         backgroundColor: '#FFFFFF',
         borderRadius: 5,
-        marginTop: 25,
         marginBottom: 5,
         padding: 5,
         textAlign: 'center'
