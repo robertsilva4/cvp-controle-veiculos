@@ -22,11 +22,11 @@ export function getVehicleByUser(apelido: string) {
     return axios.get(`${base_url}/veiculo/apelido=${apelido}/getlista=all`)
 }
 
-export function postUser(user: any, pwd: any, mail: any, name: any, telefone: any, cpf_cnpj: any, cep: any, cidade: any, uf: any) {
+export function postUser(user: any, pwd: any, mail: any, name: any, cpf_cnpj: any) {
     return axios({
         method: 'POST',
         url: `${base_url}/user`,
-        data: `apelido=${user}&usuario=${name}&email=${mail}&senha=${pwd}&cpf_cnpj=${cpf_cnpj}&tel=${telefone}&cep=${cep}&cid=${cidade}&uf=${uf}`,
+        data: `apelido=${user}&usuario=${name}&email=${mail}&senha=${pwd}&cpf_cnpj=${cpf_cnpj}`,
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/x-www-form-urlencoded"
@@ -103,4 +103,19 @@ export function updateCar(apelido: any, carId: any, chassi: any, renavan: any, o
         }
     });
 
+}
+
+export function updatePwd(userReset: string, emailReset: string, newPwdReset: string){
+    return axios({
+        method: "PUT",
+        url: `${base_url}/user/apelido=${userReset}/trocasenha/email=${emailReset}/senha=${newPwdReset}`,
+        headers: {
+            "Accept": "*/*",
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    });
+}
+
+export function viaCep (cep: number){
+    return axios.get(`https://viacep.com.br/ws/01001000/json/${cep}`)
 }

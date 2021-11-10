@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Alert, Pressable, Modal } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import { fetchLogin, fetchUser } from '../../api';
+import { fetchLogin, fetchUser, updatePwd } from '../../api';
+import { Icon } from "react-native-elements/dist/icons/Icon";
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 type Login = {
@@ -13,6 +14,10 @@ type Login = {
 export default function Login() {
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [userReset, setUserReset] = useState('')
+    const [email, setEmail] = useState('')
+    const [pwdReset, setPwdReset] = useState('')
     const navigation = useNavigation();
 
     const handleReset = () => {
@@ -26,51 +31,121 @@ export default function Login() {
             })
     }
     const handleLogin = (user: string, pwd: string) => {
-
-        fetchLogin(user, pwd)
+        let usuario = user.toLowerCase();
+        fetchLogin(usuario, pwd)
             .then(res => { handleData(res.data) })
-            .catch(() => Alert.alert("Erro de Login","Usuário ou senha inválida"))
+            .catch(() => Alert.alert("Erro de Login", "Usuário ou senha inválida"))
     }
     const handleSiginup = () => {
         navigation.navigate('Siginup')
     }
-    
+
+    const resetPwd = (userReset: string, emailReset: string, newPwdReset: string) => {
+        let email = emailReset.toLowerCase();
+        let usuario = userReset.toLowerCase();
+        var emailvalido = email.search("@")
+        if (emailvalido != -1 && usuario != '' && newPwdReset.length > 8) {
+            updatePwd(usuario, email, newPwdReset)
+                .then(() => {
+                    Alert.alert("Senha alterada com Sucesso", "Faça o Login para acessar a plataforma")
+                    setModalVisible(false)
+                })
+                .catch(() => {
+                    Alert.alert("Erro ao alterar a senha", "usuário ou e-mail inválidos")
+                });
+        } else {
+            Alert.alert("Erro ao alterar a senha", "Preencha os campos corretamente")
+        }
+    }
+
     return (
         <>
             <Header />
-            <View style={styles.containerLogin}>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setUser}
-                    placeholder="Digite o usuário"
-                    value={user}
-                ></TextInput>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setPwd}
-                    placeholder="Digite a Senha"
-                    secureTextEntry={true}
-                    value={pwd}
-                ></TextInput>
-                <RectButton
-                    onPress={handleReset}
-                >
-                    <Text style={styles.linkReset}>ESQUECI A SENHA</Text>
-                </RectButton>
-                <View style={styles.containerButtons}>
+            <View style={styles.container}>
+                <View style={styles.cardLogin}>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setUser}
+                        placeholder="Digite seu usuário"
+                        value={user}
+                    ></TextInput>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setPwd}
+                        placeholder="Digite a Senha"
+                        secureTextEntry={true}
+                        value={pwd}
+                    ></TextInput>
                     <RectButton
-                        style={styles.buttonSiginup}
-                        onPress={handleSiginup}
+                        style={styles.butonRefreshPwd}
+                        onPress={() => setModalVisible(true)}
                     >
-                        <Text>CADASTRAR</Text>
+                        <Text style={styles.textRefreshPwd}>ESQUECI A SENHA</Text>
                     </RectButton>
-                    <RectButton
-                        style={styles.buttonLogin}
-                        onPress={() => handleLogin(user, pwd)}
-                    >
-                        <Text>ACESSAR</Text>
-                    </RectButton>
+                    <View style={styles.containerButtons}>
+                        <RectButton
+                            style={styles.buttonSiginup}
+                            onPress={handleSiginup}
+                        >
+                            <Text>CADASTRAR</Text>
+                        </RectButton>
+                        <RectButton
+                            style={styles.buttonLogin}
+                            onPress={() => handleLogin(user, pwd)}
+                        >
+                            <Text>ACESSAR</Text>
+                        </RectButton>
+                    </View>
                 </View>
+            </View>
+            <View style={styles.centeredView}>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        setModalVisible(!modalVisible);
+                    }}
+                >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <View style={styles.containerCloseModal}>
+                                <Pressable
+                                    style={styles.closeModal}
+                                    onPress={() => setModalVisible(false)}
+                                >
+                                    <Icon name="close"></Icon>
+                                </Pressable>
+                            </View>
+                            <Text style={styles.modalTitle}>Atualize sua Senha</Text>
+                            <Text style={styles.modalText}>Usuário:</Text>
+                            <TextInput
+                                style={styles.modalInput}
+                                value={userReset}
+                                onChangeText={setUserReset}
+                            />
+                            <Text style={styles.modalText}>Email:</Text>
+                            <TextInput
+                                style={styles.modalInput}
+                                value={email}
+                                onChangeText={setEmail}
+                            />
+                            <Text style={styles.modalText}>Nova Senha:</Text>
+                            <TextInput
+                                style={styles.modalInput}
+                                value={pwdReset}
+                                onChangeText={setPwdReset}
+                            />
+
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => resetPwd(userReset, email, pwdReset)}
+                            >
+                                <Text style={styles.textStyle}>Salvar</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </Modal>
             </View>
             <Footer />
         </>
@@ -78,28 +153,32 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
-    containerLogin: {
-        height: '60%',
+    container: {
+        flex: 1,
+        flexDirection: "column",
+        alignItems: "center"
+    },
+    cardLogin: {
+        position: "relative",
+        height: '80%',
+        width: "90%",
+        borderRadius: 15,
+        marginTop: "10%",
+        marginBottom: "10%",
         backgroundColor: '#003566',
         alignItems: 'center',
-        marginRight: '10%',
-        marginLeft: '10%',
-        marginTop: '13%',
-        marginBottom: '13%',
-        borderRadius: 43,
     },
     input: {
-        width: '60%',
+        borderRadius: 5,
+        width: '70%',
         backgroundColor: '#FFF',
-        marginTop: 50,
+        marginTop: "13%",
+        marginBottom: "2%",
+        padding: 5,
         textAlign: 'center',
     },
-    linkReset: {
-        marginTop: 30,
-        color: '#FFC300',
-    },
     containerButtons: {
-        marginTop: 30,
+        marginTop: 10,
         flexDirection: 'row',
     },
     buttonLogin: {
@@ -113,5 +192,74 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 46,
         backgroundColor: '#5448FF',
+    },
+    textRefreshPwd: {
+        color: "#FFC300"
+    },
+    butonRefreshPwd: {
+        margin: 25,
+        padding: 2,
+    },
+
+    //modal
+    containerCloseModal:{
+        width:"100%",
+        height:"25%",
+        flexDirection:"column",
+        alignItems:"flex-end"
+    },
+    closeModal: {
+        width: "20%",
+        padding: "5%",
+        backgroundColor: "red",
+        flexDirection: "row",
+        alignItems: "center",
+        borderRadius: 10
+    },
+    centeredView: {
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        backgroundColor: "#003566",
+        borderRadius: 20,
+        alignItems: "center",
+        shadowColor: "#000",
+        width: "80%",
+        height: "80%",
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    modalTitle: {
+        color: "#FFF",
+        fontSize: 20,
+        marginTop: "-15%"
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    buttonClose: {
+        marginTop: "5%",
+        padding: "7%",
+        backgroundColor: "#2196F3",
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalInput: {
+        width: "75%",
+        backgroundColor: '#FFF',
+        color: '#000000',
+        textAlign: 'center'
+    },
+    modalText: {
+        color: "#FFF",
+        marginTop: 10,
     }
 })

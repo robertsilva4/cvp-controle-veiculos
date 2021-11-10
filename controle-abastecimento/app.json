@@ -26,7 +26,7 @@
       },
       "package": "com.robertsilva4.controleabastecimento",
       "permissions": [],
-      "versionCode": "1.1.0"
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
