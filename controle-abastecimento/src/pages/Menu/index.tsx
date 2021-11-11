@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 import { RectButton } from "react-native-gesture-handler";
 import Navbar from "../../components/Navbar";
+import Globais from "../../components/Globais";
 
 export default function Menu() {
     const navigation = useNavigation()
@@ -24,6 +25,8 @@ export default function Menu() {
     }
     const closeApp = () => {
         navigation.navigate("Login")
+        Globais.id = "";
+        Globais.apelido = "";
     }
 
     return (
