@@ -12,4 +12,4 @@
 - Execute com o comando *expo run*
 - Entre no Aplicativo "Expo go" e leia o QRCode
 - ## Link do Aplicativo na Play Store
-- <a href="https://play.google.com/store/apps/details?id=com.robertsilva4.controleabastecimento">Link do App</a>
+ <a href="https://play.google.com/store/apps/details?id=com.robertsilva4.controleabastecimento">Link do App</a>
