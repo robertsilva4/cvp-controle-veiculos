@@ -11,3 +11,5 @@
 - execute o comando *yarn add* para baixar as bibliotecas do app
 - Execute com o comando *expo run*
 - Entre no Aplicativo "Expo go" e leia o QRCode
+- ## Link do Aplicativo na Play Store
+- <a href="https://play.google.com/store/apps/details?id=com.robertsilva4.controleabastecimento">Link do App</a>
