@@ -7,3 +7,7 @@
 ## Tecnologias Utilizadas
 - React Native
 ## Utilização do código Fonte
+- Faça o clone do projeto em sua pasta workspace
+- execute o comando *yarn add* para baixar as bibliotecas do app
+- Execute com o comando *expo run*
+- Entre no Aplicativo "Expo go" e leia o QRCode
