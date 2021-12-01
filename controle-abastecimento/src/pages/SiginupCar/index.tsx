@@ -15,6 +15,7 @@ export default function Siginup() {
     const [chassiscar, setChassisCar] = useState('')
     const [renavancar, setRenavanCar] = useState('')
     const [radiocar, setRadioCar] = useState('')
+    const [kmatual, setKmatual] = useState('')
     const navigate = useNavigation()
     const user = Globais.apelido
     const data = [
@@ -42,8 +43,8 @@ export default function Siginup() {
         Alert.alert("Veículo Cadastrado com sucesso")
         navigate.navigate("Home")
     }
-    const handlecriaCar = (nomecar: any, placacar: any, anocar: any, chassiscar: any, renavancar: any, radiocar: any) => {
-        postVehicle(user, nomecar, placacar, anocar, chassiscar, renavancar, radiocar)
+    const handlecriaCar = (nomecar: any, placacar: any, anocar: any, chassiscar: any, renavancar: any, radiocar: any, kmatual: any) => {
+        postVehicle(user, nomecar, placacar, anocar, chassiscar, renavancar, radiocar, kmatual)
             .then(() => {
                 messageSuccess()
             })
@@ -98,9 +99,15 @@ export default function Siginup() {
                             placeholder="Renavam"
                             value={renavancar}
                         ></TextInput>
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={setKmatual}
+                            placeholder="Km Atual"
+                            value={kmatual}
+                        ></TextInput>
                         <RectButton
                             style={styles.button}
-                            onPress={() => handlecriaCar(nomecar, placacar, anocar, chassiscar, renavancar, radiocar)}
+                            onPress={() => handlecriaCar(nomecar, placacar, anocar, chassiscar, renavancar, radiocar, kmatual)}
                         >
                             <Text style={styles.buttonText}>CADASTRAR</Text>
                         </RectButton>
