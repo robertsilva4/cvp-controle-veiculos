@@ -144,6 +144,7 @@ export default function Login() {
                                 style={styles.modalInput}
                                 value={pwdReset}
                                 onChangeText={setPwdReset}
+                                secureTextEntry={true}
                                 placeholder="Min. 8 Caracteres"
                             />
 
