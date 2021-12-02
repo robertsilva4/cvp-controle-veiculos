@@ -115,7 +115,3 @@ export function updatePwd(userReset: string, emailReset: string, newPwdReset: st
         }
     });
 }
-
-export function viaCep(cep: number) {
-    return axios.get(`https://viacep.com.br/ws/01001000/json/${cep}`)
-}

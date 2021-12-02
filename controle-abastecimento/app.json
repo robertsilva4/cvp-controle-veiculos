@@ -2,7 +2,7 @@
   "expo": {
     "name": "Controle de Veiculos",
     "slug": "cotrole-abastecimento",
-    "version": "1.0.0",
+    "version": "1.5.0",
     "orientation": "portrait",
     "icon": "./assets/icon_cvp.png",
     "splash": {
@@ -26,7 +26,7 @@
       },
       "package": "com.robertsilva4.controleabastecimento",
       "permissions": [],
-      "versionCode": 3
+      "versionCode": 5
     },
     "web": {
       "favicon": "./assets/favicon.png"

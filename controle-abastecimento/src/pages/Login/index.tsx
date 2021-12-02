@@ -20,9 +20,6 @@ export default function Login() {
     const [pwdReset, setPwdReset] = useState('')
     const navigation = useNavigation();
 
-    const handleReset = () => {
-        Alert.alert("Button onPres")
-    }
     function handleData(login: Login) {
         fetchUser(login.data)
             .then(res => {
@@ -32,11 +29,11 @@ export default function Login() {
     }
     const handleLogin = (user: string, pwd: string) => {
         let usuario = user.toLowerCase();
-        if(usuario != '' && pwd.length > 8){
+        if (usuario != '' && pwd.length > 8) {
             fetchLogin(usuario, pwd)
-            .then(res => { handleData(res.data) })
-            .catch(() => Alert.alert("Erro de Login", "Usuário ou senha inválida"))
-        }else{
+                .then(res => { handleData(res.data) })
+                .catch(() => Alert.alert("Erro de Login", "Usuário ou senha inválida"))
+        } else {
             Alert.alert("Preencha os campos corretamente")
         }
     }
@@ -179,8 +176,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#003566',
         alignItems: 'center',
     },
-    title:{
-        color:"#fff",
+    title: {
+        color: "#fff",
         marginTop: "3%",
         fontSize: 20
     },

@@ -1,16 +1,4 @@
 {
-  "compileOnSave": true,
-  "compilerOptions": {
-    "outFile": "App.tsx",
-    "sourceMap": true,
-    "jsx": "react",
-    "target": "es6"
-  },
-  "include": [
-    "./lib/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "compilerOptions": {},
   "extends": "expo/tsconfig.base"
 }
