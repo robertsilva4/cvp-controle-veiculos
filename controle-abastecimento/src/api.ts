@@ -34,11 +34,11 @@ export function postUser(user: any, pwd: any, mail: any, name: any, cpf_cnpj: an
     })
 }
 
-export function postVehicle(apelido: any, nomevehicle: any, placa: any, ano: any, nchassis: any, renavan: any, radio: any, kmatual: number) {
+export function postVehicle(apelido: any, nomevehicle: any, placa: any, ano: any, nchassis: any, renavan: any, radio: any) {
     return axios({
         method: 'POST',
         url: `${base_url}/veiculo`,
-        data: `apelido=${apelido}&placaVeiculo=${placa}&nomeVeiculo=${nomevehicle}&renavan=${renavan}&ano_fabric=${ano}&chassis=${nchassis}&tpVeiculo=${radio}&kmAtual=${kmatual}`,
+        data: `apelido=${apelido}&placaVeiculo=${placa}&nomeVeiculo=${nomevehicle}&renavan=${renavan}&ano_fabric=${ano}&chassis=${nchassis}&tpVeiculo=${radio}`,
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/x-www-form-urlencoded"
@@ -105,7 +105,7 @@ export function updateCar(apelido: any, carId: any, chassi: any, renavan: any, o
 
 }
 
-export function updatePwd(userReset: string, emailReset: string, newPwdReset: string) {
+export function updatePwd(userReset: string, emailReset: string, newPwdReset: string){
     return axios({
         method: "PUT",
         url: `${base_url}/user/apelido=${userReset}/trocasenha/email=${emailReset}/senha=${newPwdReset}`,
@@ -116,6 +116,6 @@ export function updatePwd(userReset: string, emailReset: string, newPwdReset: st
     });
 }
 
-export function viaCep(cep: number) {
+export function viaCep (cep: number){
     return axios.get(`https://viacep.com.br/ws/01001000/json/${cep}`)
 }
